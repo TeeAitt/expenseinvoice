@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 
 import hh.swd20.expenseinvoice.domain.Expense;
 import hh.swd20.expenseinvoice.domain.ExpenseRepository;
+import hh.swd20.expenseinvoice.domain.TypeOfExpense;
+import hh.swd20.expenseinvoice.domain.TypeOfExpenseRepository;
 
 @SpringBootApplication
 public class ExpenseinvoiceApplication {
@@ -19,18 +21,27 @@ public class ExpenseinvoiceApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner demo(ExpenseRepository expenseRepository) {
+	public CommandLineRunner demo(ExpenseRepository expenseRepository, TypeOfExpenseRepository typeOfExpenseRepository) {
 		return (args) -> {
 			log.info("Save some expenses for demo purposes");
-			Expense expense1 = new Expense("1.4.2021", "Office supplies", 24.95);
-			Expense expense2 = new Expense("25.3.2021", "Taxi from customer to office", 37.60);
+			TypeOfExpense typeOfExpense1 = new TypeOfExpense("Office");
+			TypeOfExpense typeOfExpense2 = new TypeOfExpense("Taxi");
 			
-			expenseRepository.save(expense1);
-			expenseRepository.save(expense2);
+			typeOfExpenseRepository.save(typeOfExpense1);
+			typeOfExpenseRepository.save(typeOfExpense2);
+			
+			
+			expenseRepository.save(new Expense("1.4.2021", "Office supplies", 24.95, typeOfExpense1));
+			expenseRepository.save(new Expense("25.3.2021", "Taxi from customer to office", 37.60, typeOfExpense2));
 			
 			log.info("Fetch all expenses");
 			for (Expense expense : expenseRepository.findAll()) {
 				log.info(expense.toString());
+			}
+			
+			log.info("Fetch all expenses");
+			for (TypeOfExpense typeOfExpense : typeOfExpenseRepository.findAll()) {
+				log.info(typeOfExpense.toString());
 			}
 		};
 	}

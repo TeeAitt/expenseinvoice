@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Expense invoices</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+</head>
+<body>
+<div class="container">
+	<h1>Expense types</h1>
+	<h2>Types</h2>
+	<table class="table table-striped">
+		<tbody>
+		<tr>
+			<th>Type</th>
+		</tr>
+		<!-- th:each loops the model attribute "typeOfExpenses" through and inputs its content to the "typeOfExpense" object, which is declared here -->
+		<tr th:each = "typeOfExpense : ${typeOfExpenses}">
+		<!-- th:each views the content of the typeOfExpense object, which was declared above. You need to use the TypeOfExpese class attribute with the typeOfExpense object to print the content of it, i.e.: typeOfExpense.typeDef. -->
+		<td th:text = "${typeOfExpense.typeDef}"></td>
+		</tr>
+		</tbody>
+	
+	</table>
+	<br>
+	<a href = "/expenseslist" class = "btn btn-large btn-success">Main page</a>
+	
+</div>	
+</body>
+</html>

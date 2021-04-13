@@ -4,6 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 			//Describes the structure of the database table that is corresponding to the class
@@ -17,15 +21,22 @@ public class Expense {
 	private String expenseDef;
 	private double sum;
 	
+	
+	@JsonIgnoreProperties("expenses")
+	@ManyToOne	// This annotation creates a link to another database table, and by that creates a relationship between the tables.
+	@JoinColumn(name="expTypeId")	// This annotation defines the owner of the relationship. In this, it is the TypeOfExpense table and its primary key "id".
+	private TypeOfExpense typeOfExpense;	// The type of this attribute is TypeOfExpense, because of the TypeOfExpense object, which is the owner of this relationship.
+	
 	public Expense() {
 		
 	}
 	
-	public Expense(String date, String expenseDef, double sum) {
+	public Expense(String date, String expenseDef, double sum, TypeOfExpense typeOfExpense) {
 		super();
 		this.date = date;
 		this.expenseDef = expenseDef;
 		this.sum = sum;
+		this.typeOfExpense = typeOfExpense;
 	}
 
 	public long getId() {
@@ -59,13 +70,26 @@ public class Expense {
 	public void setSum(double sum) {
 		this.sum = sum;
 	}
+	
+	
+
+	public TypeOfExpense getTypeOfExpense() {
+		return typeOfExpense;
+	}
+
+	public void setTypeOfExpense(TypeOfExpense typeOfExpense) {
+		this.typeOfExpense = typeOfExpense;
+	}
 
 	@Override
 	public String toString() {
-		return "Expense [id=" + id + ", date=" + date + ", expenseDef=" + expenseDef + ", sum=" + sum + "]";
+		if (this.typeOfExpense != null)
+		return "Expense [id=" + id + ", date=" + date + ", expenseDef=" + expenseDef + ", sum=" + sum
+				+ ", typeOfExpense=" + this.getTypeOfExpense() + "]";
+		else
+		return "Expense [id=" + id + ", date=" + date + ", expenseDef=" + expenseDef + ", sum=" + sum
+				+ "]";
 	}
-	
-	
-	
+
 
 }
