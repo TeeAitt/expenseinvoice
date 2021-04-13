@@ -13,17 +13,29 @@
 		<tbody>
 		<tr>
 			<th>Percentage</th>
+			<th>Delete</th>
 		</tr>
 		<!-- th:each loops the model attribute "vat" through and inputs its content to the "vat" object, which is declared here -->
 		<tr th:each = "vat : ${vats}">
 		<!-- th:each views the content of the vat object, which was declared above. You need to use the Vat class attribute with the vat object to print the content of it, i.e.: vat.vatPercentage. -->
 		<td th:text = "${vat.vatPercentage}"></td>
+		<td><a th:href = "@{/delete_vat/{id}(id=${vat.id})}" class="btn btn-xs btn-danger">Delete</a></td>
 		</tr>
 		</tbody>
-	
 	</table>
 	<br>
-	<a href = "/expenseslist" class = "btn btn-large btn-success">Main page</a>
+		<h2>Add new VAT percentage</h2>
+	<!-- Controller has a function that listens the "@{addvat} action. -->
+	<form th:object="${vat}" th:action="@{addvat}" action="#" method="post">
+		<label for="vat">VAT %</label>
+		<!-- The * before refers to the vat object by that to the Vat class also, so the "{vatPercentage}" is its attribute. There is no need for id field, because it's auto generated. -->
+		<input type="number" step="any" id="vat" th:field="*{vatPercentage}" class="form-control"/>
+		<div style="clear: both; display: block; height: 15px;"></div>
+		
+		<input type="submit" class="btn btn-large btn-success" value="Add"></input>
+	</form>
+	<br>
+	<a href = "/expenseslist" class = "btn btn-sm btn-success">Main page</a>
 	
 </div>	
 </body>

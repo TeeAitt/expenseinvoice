@@ -13,17 +13,29 @@
 		<tbody>
 		<tr>
 			<th>Type</th>
+			<th>Delete</th>
 		</tr>
 		<!-- th:each loops the model attribute "typeOfExpenses" through and inputs its content to the "typeOfExpense" object, which is declared here -->
 		<tr th:each = "typeOfExpense : ${typeOfExpenses}">
 		<!-- th:each views the content of the typeOfExpense object, which was declared above. You need to use the TypeOfExpese class attribute with the typeOfExpense object to print the content of it, i.e.: typeOfExpense.typeDef. -->
 		<td th:text = "${typeOfExpense.typeDef}"></td>
+		<td><a th:href = "@{/delete_type/{id}(id=${typeOfExpense.id})}" class="btn btn-xs btn-danger">Delete</a></td>
 		</tr>
 		</tbody>
-	
 	</table>
 	<br>
-	<a href = "/expenseslist" class = "btn btn-large btn-success">Main page</a>
+	<h2>Create new expense type</h2>
+	<!-- Controller has a function that listens the "@{save} action. -->
+	<form th:object="${typeOfExpense}" th:action="@{save}" action="#" method="post">
+		<label for="name">Type</label>
+		<!-- The * before refers to the typeOfExpense object by that to the TypeOfExpense class also, so the "{typeDef}" is its attribute. There is no need for id field, because it's auto generated. -->
+		<input type="text" id="name" th:field="*{typeDef}" class="form-control"/>
+		<div style="clear: both; display: block; height: 15px;"></div>
+		
+		<input type="submit" class="btn btn-large btn-success" value="Save"></input>
+	</form>
+	<br>
+	<a href = "/expenseslist" class = "btn btn-sm btn-success">Main page</a>
 	
 </div>	
 </body>

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Expense invoice</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+</head>
+<body>
+<div class="container">
+	<h2>Add an expense</h2>
+	<div class="col-md-4">
+	<!-- Controller has a function that listens the "@{saveexp} action. -->
+	<form th:object="${expense}" th:action="@{saveexp}" action="#" method="post">
+		<label for="date">Date</label>
+		<!-- The * before refers to the book object by that to the Book class also, so the "{title}" is its attribute. There is no need for id field, because it's auto generated. -->
+		<input type="text" id="date" th:field="*{date}" class="form-control"/>
+		<div style="clear: both; display: block; height: 15px;"></div>
+		<label for="def">Definition</label>
+		<input type="text" id="def" th:field="*{expenseDef}" class="form-control"/>
+		<div style="clear: both; display: block; height: 15px;"></div>
+		<label for="sum">Sum</label>
+		<input type="number" step="any" id="sum" th:field="*{sum}" class="form-control"/>
+		<div style="clear: both; display: block; height: 15px;"></div>
+			
+		<!-- This is a dropdown list of the expense type.  -->	
+		<label for="exptype">Type of the expense</label>
+		<select id="exptype" th:field="*{typeOfExpense}" class="form-control">
+			<option th:each="typeOfExpense: ${typeOfExpenses}"
+					th:value="${typeOfExpense.id}"
+					th:text="${typeOfExpense.typeDef}">
+			</option>
+		</select>
+		
+		<!-- This is a dropdown list of the vat percentage.  -->	
+		<label for="vat">VAT</label>
+		<select id="vat" th:field="*{vat}" class="form-control">
+			<option th:each="vat: ${vats}"
+					th:value="${vat.id}"
+					th:text="${vat.vatPercentage}">
+			</option>
+		</select>
+		<br>
+		<input type="submit" class="btn  btn-large btn-success" value="Save"></input>
+	</form>
+	</div>
+	
+</div>	
+</body>
+</html>

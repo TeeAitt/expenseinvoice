@@ -19,6 +19,7 @@
 			<th>Definition</th>
 			<th>Sum €</th>
 			<th>VAT %</th>
+			<th>Delete</th>
 		</tr>
 		<!-- th:each loops the model attribute "expenses" through and inputs its content to the "expense" object, which is declared here -->
 		<tr th:each = "expense : ${expenses}">
@@ -28,10 +29,12 @@
 		<td th:text = "${expense.expenseDef}"></td>
 		<td th:text = "${expense.sum}"></td>
 		<td th:text = "${expense.vat.vatPercentage}"></td>
+		<td><a th:href = "@{/delete_exp/{id}(id=${expense.id})}" class="btn btn-xs btn-danger">Delete</a></td>
 		</tr>
 		</tbody>
 		</table>
 		<br>
+		<a href = "/add" class = "btn btn-large btn-success">Add new expense invoice</a>
 		<a href = "/typeofexpenselist" class = "btn btn-large btn-success">Expense types</a>
 		<a href = "/vatlist" class = "btn btn-large btn-success">VAT percentages</a>
 	
