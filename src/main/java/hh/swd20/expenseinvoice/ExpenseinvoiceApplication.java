@@ -11,6 +11,8 @@ import hh.swd20.expenseinvoice.domain.Expense;
 import hh.swd20.expenseinvoice.domain.ExpenseRepository;
 import hh.swd20.expenseinvoice.domain.TypeOfExpense;
 import hh.swd20.expenseinvoice.domain.TypeOfExpenseRepository;
+import hh.swd20.expenseinvoice.domain.Vat;
+import hh.swd20.expenseinvoice.domain.VatRepository;
 
 @SpringBootApplication
 public class ExpenseinvoiceApplication {
@@ -21,7 +23,7 @@ public class ExpenseinvoiceApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner demo(ExpenseRepository expenseRepository, TypeOfExpenseRepository typeOfExpenseRepository) {
+	public CommandLineRunner demo(ExpenseRepository expenseRepository, TypeOfExpenseRepository typeOfExpenseRepository, VatRepository vatRepository) {
 		return (args) -> {
 			log.info("Save some expenses for demo purposes");
 			TypeOfExpense typeOfExpense1 = new TypeOfExpense("Office");
@@ -31,8 +33,18 @@ public class ExpenseinvoiceApplication {
 			typeOfExpenseRepository.save(typeOfExpense2);
 			
 			
-			expenseRepository.save(new Expense("1.4.2021", "Office supplies", 24.95, typeOfExpense1));
-			expenseRepository.save(new Expense("25.3.2021", "Taxi from customer to office", 37.60, typeOfExpense2));
+			Vat vat1 = new Vat(10.0);
+			Vat vat2 = new Vat(14.0);
+			Vat vat3 = new Vat(24.0);
+			
+			vatRepository.save(vat1);
+			vatRepository.save(vat2);
+			vatRepository.save(vat3);
+			
+			
+			expenseRepository.save(new Expense("1.4.2021", "Office supplies", 24.95, typeOfExpense1, vat3));
+			expenseRepository.save(new Expense("25.3.2021", "Taxi from customer to office", 37.60, typeOfExpense2, vat1));
+			
 			
 			log.info("Fetch all expenses");
 			for (Expense expense : expenseRepository.findAll()) {
@@ -42,6 +54,11 @@ public class ExpenseinvoiceApplication {
 			log.info("Fetch all expenses");
 			for (TypeOfExpense typeOfExpense : typeOfExpenseRepository.findAll()) {
 				log.info(typeOfExpense.toString());
+			}
+			
+			log.info("Fetch all expenses");
+			for (Vat vat : vatRepository.findAll()) {
+				log.info(vat.toString());
 			}
 		};
 	}

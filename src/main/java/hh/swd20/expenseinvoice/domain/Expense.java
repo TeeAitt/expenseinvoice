@@ -27,16 +27,23 @@ public class Expense {
 	@JoinColumn(name="expTypeId")	// This annotation defines the owner of the relationship. In this, it is the TypeOfExpense table and its primary key "id".
 	private TypeOfExpense typeOfExpense;	// The type of this attribute is TypeOfExpense, because of the TypeOfExpense object, which is the owner of this relationship.
 	
+	@JsonIgnoreProperties("expenses")
+	@ManyToOne
+	@JoinColumn(name="vatId")
+	private Vat vat;
+	
+	
 	public Expense() {
 		
 	}
 	
-	public Expense(String date, String expenseDef, double sum, TypeOfExpense typeOfExpense) {
+	public Expense(String date, String expenseDef, double sum, TypeOfExpense typeOfExpense, Vat vat) {
 		super();
 		this.date = date;
 		this.expenseDef = expenseDef;
 		this.sum = sum;
 		this.typeOfExpense = typeOfExpense;
+		this.vat = vat;
 	}
 
 	public long getId() {
@@ -71,7 +78,6 @@ public class Expense {
 		this.sum = sum;
 	}
 	
-	
 
 	public TypeOfExpense getTypeOfExpense() {
 		return typeOfExpense;
@@ -80,12 +86,22 @@ public class Expense {
 	public void setTypeOfExpense(TypeOfExpense typeOfExpense) {
 		this.typeOfExpense = typeOfExpense;
 	}
+	
+	
+
+	public Vat getVat() {
+		return vat;
+	}
+
+	public void setVat(Vat vat) {
+		this.vat = vat;
+	}
 
 	@Override
 	public String toString() {
 		if (this.typeOfExpense != null)
 		return "Expense [id=" + id + ", date=" + date + ", expenseDef=" + expenseDef + ", sum=" + sum
-				+ ", typeOfExpense=" + this.getTypeOfExpense() + "]";
+				+ ", typeOfExpense=" + this.getTypeOfExpense() + ", vat=" + this.getVat() + "]";
 		else
 		return "Expense [id=" + id + ", date=" + date + ", expenseDef=" + expenseDef + ", sum=" + sum
 				+ "]";

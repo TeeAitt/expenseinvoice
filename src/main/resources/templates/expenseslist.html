@@ -15,22 +15,25 @@
 		<tbody>
 		<tr>
 			<th>Date</th>
-			<th>Definition</th>
-			<th>Sum</th>
 			<th>Type</th>
+			<th>Definition</th>
+			<th>Sum €</th>
+			<th>VAT %</th>
 		</tr>
 		<!-- th:each loops the model attribute "expenses" through and inputs its content to the "expense" object, which is declared here -->
 		<tr th:each = "expense : ${expenses}">
 		<!-- th:each views the content of the expense object, which was declared above. You need to use the Expense class attribute with the expense object to print the content of it, i.e.: expense.date, etc. -->
 		<td th:text = "${expense.date}"></td>
+		<td th:text = "${expense.typeOfExpense.typeDef}"></td>
 		<td th:text = "${expense.expenseDef}"></td>
 		<td th:text = "${expense.sum}"></td>
-		<td th:text = "${expense.typeOfExpense.typeDef}"></td>
+		<td th:text = "${expense.vat.vatPercentage}"></td>
 		</tr>
 		</tbody>
 		</table>
 		<br>
 		<a href = "/typeofexpenselist" class = "btn btn-large btn-success">Expense types</a>
+		<a href = "/vatlist" class = "btn btn-large btn-success">VAT percentages</a>
 	
 </div>	
 </body>
