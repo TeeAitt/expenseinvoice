@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import hh.swd20.expenseinvoice.domain.Expense;
 import hh.swd20.expenseinvoice.domain.ExpenseRepository;
 import hh.swd20.expenseinvoice.domain.TypeOfExpenseRepository;
+import hh.swd20.expenseinvoice.domain.UserRepository;
 import hh.swd20.expenseinvoice.domain.VatRepository;
 
 @Controller
@@ -24,6 +25,9 @@ public class ExpenseController {
 	
 	@Autowired
 	private VatRepository vatRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 	
 	// This function is for login page.
 	@RequestMapping("/login")
@@ -44,10 +48,22 @@ public class ExpenseController {
 		model.addAttribute("expense", new Expense());
 		model.addAttribute("typeOfExpenses", typeOfExpenseRepository.findAll());
 		model.addAttribute("vats", vatRepository.findAll());
+		model.addAttribute("users", userRepository.findAll());
 		return "addexpense";
 	}
 	
-	// This function saves the added expense.
+	// This function prints existing expense information, that can then be edited.
+	@RequestMapping(value="/edit_exp/{id}", method=RequestMethod.GET)
+	@PreAuthorize("hasAuthority('ADMIN')")
+	public String editExpense(@PathVariable(value="id") Long expenseId, Model model) {
+		model.addAttribute("expense", expenseRepository.findById(expenseId));
+		model.addAttribute("typeOfExpenses", typeOfExpenseRepository.findAll());
+		model.addAttribute("vats", vatRepository.findAll());
+		model.addAttribute("users", userRepository.findAll());
+		return "editexpense";
+	}
+	
+	// This function saves the added/edited expense.
 	@RequestMapping(value="/saveexp", method=RequestMethod.POST)
 	public String saveExpense(Expense expense) {
 		expenseRepository.save(expense);

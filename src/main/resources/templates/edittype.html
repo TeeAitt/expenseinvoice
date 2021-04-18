@@ -13,18 +13,20 @@
 </head>
 <body>
 <div class="container p-3 mb-2 bg-light text-black rounded">
-	<h2>Edit department</h2>
-	<!-- Controller has a function that listens the "@{savedeptt} action. -->
-	<form th:object="${department}" th:action="@{../savedept}" action="#" method="post">
+	<h2>Edit expense type</h2>
+	<!-- Controller has a function that listens the "@{savetype} action. -->
+	<form th:object="${exptype}" th:action="@{../savetype}" action="#" method="post">
 		<input type="hidden" th:field="*{id}" class="form-control"/>
 		<div class="form-group">
-		<label for="dept">Department</label>
-		<input type="text" id="dept" th:field="*{depName}" class="form-control"/>
+		<label for="type">Type definition</label>
+		<!-- The * before refers to the vat object by that to the Vat class also, so the "{vatPercentage}" is its attribute. There is no need for id field, because it's auto generated. -->
+		<input type="text" id="type" th:field="*{typeDef}" class="form-control"/>
 		</div>
 		
 		<input type="submit" class="btn btn-large btn-success" value="Save"></input>
-		<a href = "/deptlist" class = "btn btn-large btn-success">Departments</a>
+		<a href = "/typeofexpnselist" class = "btn btn-large btn-success">Expense types</a>
 	</form>
+	
 	
 </div>
 </body>

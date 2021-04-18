@@ -1,35 +1,37 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-<title>Expense invoice</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<title>Expense Invoices</title>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<style>
 	body {background-color:rgb(80, 87, 99); margin-top:20px;}
-	table {border-radius: 10px;}
 	</style>
 </head>
 <body>
 <div class="container p-3 mb-2 bg-light text-black rounded">
-	<h2>Add an expense</h2>
-
+	<h2>Edit Expense</h2>
 	<!-- Controller has a function that listens the "@{saveexp} action. -->
-	<form th:object="${expense}" th:action="@{saveexp}" action="#" method="post">
+	<form th:object="${expense}" th:action="@{../saveexp}" action="#" method="post">
+		<input type="hidden" th:field="*{id}" class="form-control"/>
+		<div class="form-group">
 		<label for="date">Date</label>
-		<!-- The * before refers to the book object by that to the Book class also, so the "{title}" is its attribute. There is no need for id field, because it's auto generated. -->
 		<input type="text" id="date" th:field="*{date}" class="form-control"/>
-		<div style="clear: both; display: block; height: 15px;"></div>
+		</div>
+		<div class="form-group">
 		<label for="def">Definition</label>
 		<input type="text" id="def" th:field="*{expenseDef}" class="form-control"/>
-		<div style="clear: both; display: block; height: 15px;"></div>
+		</div>
+		<div class="form-group">
 		<label for="sum">Sum</label>
 		<input type="number" step="any" id="sum" th:field="*{sum}" class="form-control"/>
-		<div style="clear: both; display: block; height: 15px;"></div>
-			
-		<!-- This is a dropdown list for expense type.  -->	
+		</div>
+		
+		<!-- This is a dropdown list for the expense type.  -->
+		<div class="form-group">
 		<label for="exptype">Expense type</label>
 		<select id="exptype" th:field="*{typeOfExpense}" class="form-control">
 			<option th:each="typeOfExpense: ${typeOfExpenses}"
@@ -37,8 +39,10 @@
 					th:text="${typeOfExpense.typeDef}">
 			</option>
 		</select>
+		</div>
 		
-		<!-- This is a dropdown list for vat percentage.  -->	
+		<!-- This is a dropdown list for the vat percentage.  -->
+		<div class="form-group">
 		<label for="vat">VAT</label>
 		<select id="vat" th:field="*{vat}" class="form-control">
 			<option th:each="vat: ${vats}"
@@ -46,8 +50,10 @@
 					th:text="${vat.vatPercentage}">
 			</option>
 		</select>
+		</div>
 		
-		<!-- This is a dropdown list for user.  -->	
+		<!-- This is a dropdown list for user.  -->
+		<div class="form-group">
 		<label for="user">User</label>
 		<select id="user" th:field="*{user}" class="form-control">
 			<option th:each="user: ${users}"
@@ -55,12 +61,13 @@
 					th:text="${user.username}">
 			</option>
 		</select>
-		<br>
-		<input type="submit" class="btn  btn-large btn-success" value="Save"></input>
-		<a href = "/expenseslist" class = "btn btn-large btn-success">Main page</a>
+		</div>
+		
+		<input type="submit" class="btn btn-large btn-success" value="Save"></input>
+		<a href = "/expenseslist" class = "btn btn-large btn-success">Expenses</a>
 	</form>
 	
 	
-</div>	
+</div>
 </body>
 </html>

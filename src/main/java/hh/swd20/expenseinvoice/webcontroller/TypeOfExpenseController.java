@@ -26,10 +26,18 @@ public class TypeOfExpenseController {
 		return "typeofexpenselist";
 	}
 	
-	// This function saves the added expense type.
-	@RequestMapping(value="/save", method=RequestMethod.POST)
+	// This function prints existing expense type information, that can then be edited.
+	@RequestMapping(value="/edit_type/{id}", method=RequestMethod.GET)
 	@PreAuthorize("hasAuthority('ADMIN')")
-	public String save(TypeOfExpense typeOfExpense) {
+	public String editExpType(@PathVariable(value="id") Long typeId, Model model) {
+		model.addAttribute("exptype", typeOfExpenseRepository.findById(typeId));
+		return "edittype";
+	}
+	
+	// This function saves the added/edited expense type.
+	@RequestMapping(value="/savetype", method=RequestMethod.POST)
+	@PreAuthorize("hasAuthority('ADMIN')")
+	public String saveExpType(TypeOfExpense typeOfExpense) {
 		typeOfExpenseRepository.save(typeOfExpense);
 		return "redirect:typeofexpenselist";
 	}

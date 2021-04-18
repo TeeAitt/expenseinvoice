@@ -1,41 +1,49 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <title>Expense invoices</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<style>
+	body {background-color:rgb(80, 87, 99); margin-top:20px;}
+	table {border-radius: 10px;}
+	</style>
 </head>
 <body>
-<div class="container">
-	<h1>Expense types</h1>
-	<h2>Types</h2>
-	<table class="table table-striped">
+<div class="container p-3 mb-2 bg-light text-black rounded">
+	<h2>Expense types</h2>
+	<table class="table table-dark">
 		<tbody>
 		<tr>
 			<th>Type</th>
 			<th>Delete</th>
+			<th>Edit</th>
 		</tr>
 		<!-- th:each loops the model attribute "typeOfExpenses" through and inputs its content to the "typeOfExpense" object, which is declared here -->
 		<tr th:each = "typeOfExpense : ${typeOfExpenses}">
 		<!-- th:each views the content of the typeOfExpense object, which was declared above. You need to use the TypeOfExpese class attribute with the typeOfExpense object to print the content of it, i.e.: typeOfExpense.typeDef. -->
 		<td th:text = "${typeOfExpense.typeDef}"></td>
 		<td><a th:href = "@{/delete_type/{id}(id=${typeOfExpense.id})}" class="btn btn-xs btn-danger">Delete</a></td>
+		<td><a th:href = "@{/edit_type/{id}(id=${typeOfExpense.id})}" class="btn btn-xs btn-success">Edit</a></td>
 		</tr>
 		</tbody>
 	</table>
 	<br>
 	<h2>Create new expense type</h2>
-	<!-- Controller has a function that listens the "@{save} action. -->
-	<form th:object="${typeOfExpense}" th:action="@{save}" action="#" method="post">
+	<!-- Controller has a function that listens the "@{savetype} action. -->
+	<form th:object="${typeOfExpense}" th:action="@{savetype}" action="#" method="post">
 		<label for="name">Type</label>
 		<!-- The * before refers to the typeOfExpense object by that to the TypeOfExpense class also, so the "{typeDef}" is its attribute. There is no need for id field, because it's auto generated. -->
 		<input type="text" id="name" th:field="*{typeDef}" class="form-control"/>
 		<div style="clear: both; display: block; height: 15px;"></div>
 		
 		<input type="submit" class="btn btn-large btn-success" value="Save"></input>
+		<a href = "/expenseslist" class = "btn btn-large btn-success">Main page</a>
 	</form>
-	<br>
-	<a href = "/expenseslist" class = "btn btn-sm btn-success">Main page</a>
+	
 	
 </div>	
 </body>

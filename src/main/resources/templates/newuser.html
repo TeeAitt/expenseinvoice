@@ -3,12 +3,17 @@
 <head>
 <title>Expense Invoice</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<style>
+	body {background-color:rgb(80, 87, 99); margin-top:20px;}
+	</style>
 </head>
 <body>
-<div class="container">
+<div class="container p-3 mb-2 bg-light text-black rounded">
 	<h2>Add new user</h2>
-	<div class="col-md-4">
 	<!-- UserController has a function that listens the "@{saveuser} action. -->
 	<form th:object="${user}" th:action="@{saveuser}" action="#" method="post">
 		<!-- The * before refers to the user object by that to the User class also, so the "{username}" is its attribute. There is no need for id field, because it's auto generated. -->
@@ -43,7 +48,7 @@
 		<br>
 		<input type="submit" class="btn  btn-large btn-success" value="Save"></input>
 	</form>
-	</div>
+
 	
 </div>	
 </body>

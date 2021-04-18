@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>Expense Invoices</title>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<style>
+	body {background-color:rgb(80, 87, 99); margin-top:20px;}
+	</style>
+</head>
+<body>
+<div class="container p-3 mb-2 bg-light text-black rounded">
+	<h2>Edit User</h2>
+	<!-- Controller has a function that listens the "@{saveuser} action. -->
+	<form th:object="${user}" th:action="@{../saveuser}" action="#" method="post">
+		<input type="hidden" th:field="*{id}" class="form-control"/>
+		<div class="form-group">
+		<label for="user">User name</label>
+		<input type="text" id="user" th:field="*{username}" class="form-control"/>
+		</div>
+		<div class="form-group">
+		<label for="pw">Password</label>
+		<input type="text" id="pw" th:field="*{passwordHash}" class="form-control"/>
+		</div>
+		<div class="form-group">
+		<label for="fname">First name</label>
+		<input type="text" id="fname" th:field="*{firstName}" class="form-control"/>
+		</div>
+		<div class="form-group">
+		<label for="lname">Last name</label>
+		<input type="text" id="lname" th:field="*{lastName}" class="form-control"/>
+		</div>
+		<div class="form-group">
+		<label for="email">email</label>
+		<input type="text" id="email" th:field="*{email}" class="form-control"/>
+		</div>
+		<div class="form-group">
+		<label for="role">Role</label>
+		<input type="text" id="role" th:field="*{role}" class="form-control"/>
+		</div>
+		
+		<!-- This is the department dropdown list.  -->
+		<div class="form-group">
+		<label for="dept">Department</label>
+		<select id="dept" th:field="*{department}" class="form-control">
+			<option th:each="department: ${departments}"
+					th:value="${department.id}"
+					th:text="${department.depName}">
+			</option>
+		</select>
+		</div>
+		
+		
+		<input type="submit" class="btn btn-large btn-success" value="Save"></input>
+		<a href = "/userlist" class = "btn btn-large btn-success">User list</a>
+	</form>
+	
+	
+</div>
+</body>
+</html>

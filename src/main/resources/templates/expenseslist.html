@@ -3,25 +3,34 @@
 <head>
 <title>Expense Invoices</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<style>
+	body {background-color:rgb(80, 87, 99); margin-top:20px;}
+	table {border-radius: 10px;}
+	h1 {color:black;}
+	</style>
 </head>
 <body>
-<div class="container">
+<div class="container p-3 mb-2 bg-light text-black rounded">
+	
 	<div class="col-md-4">
 	<h1>Expense Invoices</h1>
 	</div>
 	<br>
+	<div class="d-flex justify-content-center">
 	<div class="col-md-4">
 	<!-- This will show the logged in user name after the Welcome text. -->
 	<h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
 	</div>
-	<br>
 	<div class="col-md-4">
 	<form th:action="@{/logout}" method="post">
 	<input type="submit" value="Sign out" class="btn btn-sm btn-danger"/></form>
 	</div>
-	
-	<table class="table table-striped">
+	</div>
+	<table class="table table-dark">
 		<tbody>
 		<tr>
 			<th>Date</th>
@@ -31,6 +40,7 @@
 			<th>VAT %</th>
 			<th>User</th>
 			<th sec:authorize="hasAuthority('ADMIN')">Delete</th>
+			<th sec:authorize="hasAuthority('ADMIN')">User</th>
 		</tr>
 		<!-- th:each loops the model attribute "expenses" through and inputs its content to the "expense" object, which is declared here -->
 		<tr th:each = "expense : ${expenses}">
@@ -42,6 +52,7 @@
 		<td th:text = "${expense.vat.vatPercentage}"></td>
 		<td th:text = "${expense.user.username}"></td>
 		<td sec:authorize="hasAuthority('ADMIN')"><a th:href = "@{/delete_exp/{id}(id=${expense.id})}" class="btn btn-xs btn-danger">Delete</a></td>
+		<td sec:authorize="hasAuthority('ADMIN')"><a th:href = "@{/edit_exp/{id}(id=${expense.id})}" class="btn btn-xs btn-success">Edit</a></td>
 		</tr>
 		</tbody>
 		</table>
