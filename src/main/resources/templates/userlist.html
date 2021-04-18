@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>Expense invoices</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+</head>
+<body>
+<div class="container">
+	<div class="col-md-4">
+	<h2>User list</h2>
+	</div>
+	<br>
+	
+	<table class="table table-striped">
+		<tbody>
+		<tr>
+			<th>User name</th>
+			<th>First name</th>
+			<th>Last name</th>
+			<th>email</th>
+			<th>Role</th>
+			<th>Department</th>
+		<!-- <th>Delete</th>  -->
+		</tr>
+		<!-- th:each loops the model attribute "users" through and inputs its content to the "user" object, which is declared here -->
+		<tr th:each = "user : ${users}">
+		<!-- th:each views the content of the user object, which was declared above. You need to use the User class attribute with the user object to print the content of it. -->
+		<td th:text = "${user.username}"></td>
+		<td th:text = "${user.firstName}"></td>
+		<td th:text = "${user.lastName}"></td>
+		<td th:text = "${user.email}"></td>
+		<td th:text = "${user.role}"></td>
+		<td th:text = "${user.department.depName}"></td>
+		<!-- With the "@" and "{id}" the delete function links to the id of that row. So if there's five rows with ids' 1, 2, 3, 4 and 5, the particular row data will be deleted based on the id it has. -->
+		<!-- With sec:authorize the delete button can be restricted only for ADMIN role -->
+		<!-- <td sec:authorize="hasAuthority('ADMIN')"><a th:href = "@{/deluser/{id}(id=${user.id})}" class="btn btn-xs btn-danger">Delete</a></td>   -->
+		</tr>
+		</tbody>
+		</table>
+		
+		
+		<br>
+		<a href = "/adduser" class = "btn btn-large btn-success">Add new user</a>
+		<a href = "/deptlist" class = "btn btn-large btn-success">Departments</a>
+		<a href = "/expenseslist" class = "btn btn-large btn-success">Main page</a>
+		
+	
+</div>	
+</body>
+</html>

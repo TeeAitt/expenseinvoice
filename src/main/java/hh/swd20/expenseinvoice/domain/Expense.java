@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
-			//Describes the structure of the database table that is corresponding to the class
+//Describes the structure of the database table that is corresponding to the class
 @Entity		// table name, column names and data types, primary key etc. In short: an entity represents a table in relational database.
 public class Expense {
 	
@@ -32,18 +32,24 @@ public class Expense {
 	@JoinColumn(name="vatId")
 	private Vat vat;
 	
+	@JsonIgnoreProperties("expenses")
+	@ManyToOne
+	@JoinColumn(name="userId")
+	private User user;
+	
 	
 	public Expense() {
 		
 	}
 	
-	public Expense(String date, String expenseDef, double sum, TypeOfExpense typeOfExpense, Vat vat) {
+	public Expense(String date, String expenseDef, double sum, TypeOfExpense typeOfExpense, Vat vat, User user) {
 		super();
 		this.date = date;
 		this.expenseDef = expenseDef;
 		this.sum = sum;
 		this.typeOfExpense = typeOfExpense;
 		this.vat = vat;
+		this.user = user;
 	}
 
 	public long getId() {
@@ -86,8 +92,6 @@ public class Expense {
 	public void setTypeOfExpense(TypeOfExpense typeOfExpense) {
 		this.typeOfExpense = typeOfExpense;
 	}
-	
-	
 
 	public Vat getVat() {
 		return vat;
@@ -96,12 +100,21 @@ public class Expense {
 	public void setVat(Vat vat) {
 		this.vat = vat;
 	}
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
 
 	@Override
 	public String toString() {
 		if (this.typeOfExpense != null)
 		return "Expense [id=" + id + ", date=" + date + ", expenseDef=" + expenseDef + ", sum=" + sum
-				+ ", typeOfExpense=" + this.getTypeOfExpense() + ", vat=" + this.getVat() + "]";
+				+ ", typeOfExpense=" + this.getTypeOfExpense() + ", vat=" + this.getVat() + ", user=" + this.getUser() + "]";
 		else
 		return "Expense [id=" + id + ", date=" + date + ", expenseDef=" + expenseDef + ", sum=" + sum
 				+ "]";

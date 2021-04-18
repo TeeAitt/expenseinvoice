@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <title>Expense Invoices</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -10,6 +10,16 @@
 	<div class="col-md-4">
 	<h1>Expense Invoices</h1>
 	</div>
+	<br>
+	<div class="col-md-4">
+	<!-- This will show the logged in user name after the Welcome text. -->
+	<h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
+	</div>
+	<br>
+	<div class="col-md-4">
+	<form th:action="@{/logout}" method="post">
+	<input type="submit" value="Sign out" class="btn btn-sm btn-danger"/></form>
+	</div>
 	
 	<table class="table table-striped">
 		<tbody>
@@ -19,7 +29,8 @@
 			<th>Definition</th>
 			<th>Sum €</th>
 			<th>VAT %</th>
-			<th>Delete</th>
+			<th>User</th>
+			<th sec:authorize="hasAuthority('ADMIN')">Delete</th>
 		</tr>
 		<!-- th:each loops the model attribute "expenses" through and inputs its content to the "expense" object, which is declared here -->
 		<tr th:each = "expense : ${expenses}">
@@ -29,14 +40,16 @@
 		<td th:text = "${expense.expenseDef}"></td>
 		<td th:text = "${expense.sum}"></td>
 		<td th:text = "${expense.vat.vatPercentage}"></td>
-		<td><a th:href = "@{/delete_exp/{id}(id=${expense.id})}" class="btn btn-xs btn-danger">Delete</a></td>
+		<td th:text = "${expense.user.username}"></td>
+		<td sec:authorize="hasAuthority('ADMIN')"><a th:href = "@{/delete_exp/{id}(id=${expense.id})}" class="btn btn-xs btn-danger">Delete</a></td>
 		</tr>
 		</tbody>
 		</table>
 		<br>
 		<a href = "/add" class = "btn btn-large btn-success">Add new expense invoice</a>
-		<a href = "/typeofexpenselist" class = "btn btn-large btn-success">Expense types</a>
-		<a href = "/vatlist" class = "btn btn-large btn-success">VAT percentages</a>
+		<td sec:authorize="hasAuthority('ADMIN')"><a href = "/typeofexpenselist" class = "btn btn-large btn-success">Expense types</a></td>
+		<td sec:authorize="hasAuthority('ADMIN')"><a href = "/vatlist" class = "btn btn-large btn-success">VAT percentages</a></td>
+		<td sec:authorize="hasAuthority('ADMIN')"><a href = "/userlist" class = "btn btn-large btn-success">User list</a></td>
 	
 </div>	
 </body>

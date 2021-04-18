@@ -1,6 +1,7 @@
 package hh.swd20.expenseinvoice.webcontroller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,12 @@ public class ExpenseController {
 	
 	@Autowired
 	private VatRepository vatRepository;
+	
+	// This function is for login page.
+	@RequestMapping("/login")
+	public String login() {
+		return "login";
+	}
 	
 	// This function prints all expenses on the expenseslist page.
 	@RequestMapping("/expenseslist")
@@ -49,6 +56,7 @@ public class ExpenseController {
 	
 	// This function deletes an expense.
 	@RequestMapping(value="/delete_exp/{id}", method=RequestMethod.GET)
+	@PreAuthorize("hasAuthority('ADMIN')")	// The PreAuthorize annotation prevents from unauthorized users the possibility to delete an expense by using "/delete/id" end point.
 	public String deleteExpense(@PathVariable(value="id") Long expenseId) {
 		expenseRepository.deleteById(expenseId);
 		return "redirect:../expenseslist";

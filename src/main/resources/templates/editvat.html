@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <title>Expense Invoices</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -14,31 +14,11 @@
 </head>
 <body>
 <div class="container p-3 mb-2 bg-dark text-white rounded">
-	<h2>VAT percentages</h2>
+	<h2>Edit VAT %</h2>
 	<br>
-	
-	<table class="container p-3 mb-2 bg-dark text-white rounded">
-		<tbody>
-		<tr>
-			<th>Percentage</th>
-			<th>Delete</th>
-			<th>Edit</th>
-			
-		</tr>
-		<!-- th:each loops the model attribute "vat" through and inputs its content to the "vat" object, which is declared here -->
-		<tr th:each = "vat : ${vats}">
-		<!-- th:each views the content of the vat object, which was declared above. You need to use the Vat class attribute with the vat object to print the content of it, i.e.: vat.vatPercentage. -->
-		<td th:text = "${vat.vatPercentage}"></td>
-		<td><a th:href = "@{/delete_vat/{id}(id=${vat.id})}" class="btn btn-xs btn-danger">Delete</a></td>
-		<td><a th:href = "@{/edit_vat/{id}(id=${vat.id})}" class="btn btn-xs btn-success">Edit</a></td>
-		
-		</tr>
-		</tbody>
-	</table>
-	<br>
-		<h2>Add new VAT percentage</h2>
 	<!-- Controller has a function that listens the "@{addvat} action. -->
-	<form th:object="${vat}" th:action="@{savevat}" action="#" method="post">
+	<form th:object="${vat}" th:action="@{../savevat}" action="#" method="post">
+		<input type="hidden" th:field="*{id}" class="form-control"/>
 		<div class="form-group">
 		<label for="vat">VAT %</label>
 		<!-- The * before refers to the vat object by that to the Vat class also, so the "{vatPercentage}" is its attribute. There is no need for id field, because it's auto generated. -->
@@ -48,8 +28,8 @@
 		<input type="submit" class="btn btn-large btn-success" value="Save"></input>
 	</form>
 	<br>
-	<a href = "/expenseslist" class = "btn btn-sm btn-success">Main page</a>
+	<a href = "/vatlist" class = "btn btn-sm btn-success">VAT percentages</a>
 	
-</div>	
+</div>
 </body>
 </html>
