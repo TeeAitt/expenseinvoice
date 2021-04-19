@@ -8,11 +8,13 @@
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<style>
-	body {background-color:rgb(80, 87, 99); margin-top:20px;}
+	body {background-color:rgb(120, 127, 139); margin-top:20px;}
+	h1 {color:white;}
+	label {color:white;}
 	</style>
 </head>
 <body>
-<div class="container p-3 mb-2 bg-light text-black rounded">
+<div class="container p-3 mb-2 bg-dark text-black rounded">
 	<h1>Expense invoice</h1>
 	<div th:if="${param.error}" class="well">
 	Invalid user name and password!

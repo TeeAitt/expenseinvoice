@@ -1,6 +1,7 @@
 package hh.swd20.expenseinvoice.webcontroller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ public class DepartmentController {
 	
 	// This function prints all departments on the deptlist page. It also prints an empty form for adding a new department.
 	@RequestMapping("/deptlist")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public String department(Model model) {
 		model.addAttribute("departments", departmentRepository.findAll());
 		model.addAttribute("department", new Department());
@@ -26,6 +28,7 @@ public class DepartmentController {
 	
 	// This function prints existing department information, that can then be edited.
 	@RequestMapping(value="/edit_dept/{id}", method=RequestMethod.GET)
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public String editDept(@PathVariable(value="id") Long deptId, Model model) {
 		model.addAttribute("department", departmentRepository.findById(deptId));
 		return "editdept";
@@ -33,6 +36,7 @@ public class DepartmentController {
 	
 	// This function saves the added/edited department.
 	@RequestMapping(value="/savedept", method=RequestMethod.POST)
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public String saveDept(Department department) {
 		departmentRepository.save(department);
 		return "redirect:deptlist";
@@ -40,6 +44,7 @@ public class DepartmentController {
 	
 	// This function deletes a department.
 	@RequestMapping(value="/delete_dept/{id}", method=RequestMethod.GET)
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public String deleteDept(@PathVariable(value="id") Long deptId) {
 		departmentRepository.deleteById(deptId);
 		return "redirect:../deptlist";
