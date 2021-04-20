@@ -1,9 +1,12 @@
 package hh.swd20.expenseinvoice.webcontroller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,12 +37,16 @@ public class TypeOfExpenseController {
 		return "edittype";
 	}
 	
-	// This function saves the added/edited expense type.
+	// This function saves the added/edited expense type. It also checks with @Valid that the inserted data is in correct format.
 	@RequestMapping(value="/savetype", method=RequestMethod.POST)
 	@PreAuthorize("hasAuthority('ADMIN')")
-	public String saveExpType(TypeOfExpense typeOfExpense) {
+	public String saveExpType(@Valid TypeOfExpense typeOfExpense, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			return "typeofexpenselist";
+		} else {
 		typeOfExpenseRepository.save(typeOfExpense);
 		return "redirect:typeofexpenselist";
+		}
 	}
 	
 	// This function deletes an expense type.

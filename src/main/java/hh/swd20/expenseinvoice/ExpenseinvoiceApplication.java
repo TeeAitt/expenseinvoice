@@ -32,11 +32,21 @@ public class ExpenseinvoiceApplication {
 			log.info("Save some expenses for demo purposes");
 			
 			// Demo expense types
-			TypeOfExpense typeOfExpense1 = new TypeOfExpense("Office");
-			TypeOfExpense typeOfExpense2 = new TypeOfExpense("Taxi");
+			TypeOfExpense typeOfExpense1 = new TypeOfExpense("Coffee supplies");
+			TypeOfExpense typeOfExpense2 = new TypeOfExpense("Vechile & Fuels costs");
+			TypeOfExpense typeOfExpense3 = new TypeOfExpense("Computers & Software");
+			TypeOfExpense typeOfExpense4 = new TypeOfExpense("Travel Expenses");
+			TypeOfExpense typeOfExpense5 = new TypeOfExpense("Taxi");
+			TypeOfExpense typeOfExpense6 = new TypeOfExpense("Office");
+			TypeOfExpense typeOfExpense7 = new TypeOfExpense("Marketing costs");
 			
 			typeOfExpenseRepository.save(typeOfExpense1);
 			typeOfExpenseRepository.save(typeOfExpense2);
+			typeOfExpenseRepository.save(typeOfExpense3);
+			typeOfExpenseRepository.save(typeOfExpense4);
+			typeOfExpenseRepository.save(typeOfExpense5);
+			typeOfExpenseRepository.save(typeOfExpense6);
+			typeOfExpenseRepository.save(typeOfExpense7);
 			
 			// Demo vat percentages
 			Vat vat1 = new Vat(10.0);
@@ -57,7 +67,7 @@ public class ExpenseinvoiceApplication {
 			departmentRepository.save(dept3);
 			
 			// Demo users
-			User admin = new User("admin", "$2y$10$zZQ5SdDof5NOVL6e6EO3weqf9mmTEI/Z3QJVJ84mt7FkUtMyn.RyW", "admin_user", "admin_user", "admin@admin", "ADMIN", dept3);
+			User admin = new User("admin", "$2y$10$zZQ5SdDof5NOVL6e6EO3weqf9mmTEI/Z3QJVJ84mt7FkUtMyn.RyW", "admin_user", "admin_user", "admin@admin.com", "ADMIN", dept3);
 			User john = new User("john", "$2y$10$tzLPbyrBchc9BjJQLsw/nui7T489dB5coP4XZPJMCjhp2T3VlOJWa", "John", "Johnson", "john@john.com", "ADMIN", dept3);
 			User kelly = new User("kelly", "$2y$10$ro7II1dkvlHMU3VLyL8XQuYuP0An4.l6jKMMkX4j6RXii4ZvNia6e", "Kelly", "Smith", "kelly@kelly.com", "USER", dept2);
 			User jack = new User("jack", "$2y$10$oAFiMIGyMJF52GsVgM1nie.ltyOqJjeocElFvBwWD.A5T3hbYRFwW", "Jack", "Jackson", "jack@jack.com", "USER", dept1);
@@ -71,8 +81,8 @@ public class ExpenseinvoiceApplication {
 			
 			
 			// Demo expenses with relationship entities
-			expenseRepository.save(new Expense("1.4.2021", "Office supplies", 24.95, typeOfExpense1, vat3, jack));
-			expenseRepository.save(new Expense("25.3.2021", "Taxi from customer to office", 37.60, typeOfExpense2, vat1, kelly));
+			expenseRepository.save(new Expense("1.4.2021", "Office supplies", 24.95, typeOfExpense6, vat3, jack));
+			expenseRepository.save(new Expense("25.3.2021", "Taxi from customer to office", 37.60, typeOfExpense5, vat1, kelly));
 			
 			
 			log.info("Fetch all expenses");

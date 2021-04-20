@@ -6,6 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface VatRepository extends CrudRepository<Vat, Long> {
 	
-	List<Vat> findByVatPercentage(String vatPercentage);
+	List<Vat> findByVatPercentage(double vatPercentage);
 
 }

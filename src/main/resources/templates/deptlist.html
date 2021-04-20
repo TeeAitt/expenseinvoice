@@ -44,6 +44,7 @@
 		<label for="dept">Department</label>
 		<!-- The * before refers to the vat object by that to the Vat class also, so the "{vatPercentage}" is its attribute. There is no need for id field, because it's auto generated. -->
 		<input type="text" id="dept" th:field="*{depName}" class="form-control"/>
+		<div th:if="${#fields.hasErrors('depName')}" th:errors="*{depName}"></div>
 		</div>
 		
 		<input type="submit" class="btn btn-large btn-success" value="Save"></input>
