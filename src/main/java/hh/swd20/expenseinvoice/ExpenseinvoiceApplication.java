@@ -52,19 +52,23 @@ public class ExpenseinvoiceApplication {
 			Vat vat1 = new Vat(10.0);
 			Vat vat2 = new Vat(14.0);
 			Vat vat3 = new Vat(24.0);
+			Vat vatTest = new Vat(9.0);
 			
 			vatRepository.save(vat1);
 			vatRepository.save(vat2);
 			vatRepository.save(vat3);
+			vatRepository.save(vatTest);
 			
 			// Demo Departments
 			Department dept1 = new Department("Finance");
 			Department dept2 = new Department("Sales");
 			Department dept3 = new Department("IT");
+			Department dept4 = new Department("Marketing");
 			
 			departmentRepository.save(dept1);
 			departmentRepository.save(dept2);
 			departmentRepository.save(dept3);
+			departmentRepository.save(dept4);
 			
 			// Demo users
 			User admin = new User("admin", "$2y$10$zZQ5SdDof5NOVL6e6EO3weqf9mmTEI/Z3QJVJ84mt7FkUtMyn.RyW", "admin_user", "admin_user", "admin@admin.com", "ADMIN", dept3);
@@ -83,6 +87,9 @@ public class ExpenseinvoiceApplication {
 			// Demo expenses with relationship entities
 			expenseRepository.save(new Expense("1.4.2021", "Office supplies", 24.95, typeOfExpense6, vat3, jack));
 			expenseRepository.save(new Expense("25.3.2021", "Taxi from customer to office", 37.60, typeOfExpense5, vat1, kelly));
+			expenseRepository.save(new Expense("4.2.2021", "Milk to office", 5.79, typeOfExpense1, vat2, matt));
+			expenseRepository.save(new Expense("17.2.2021", "New keyboard to replace the broken one", 37.99, typeOfExpense3, vat3, kelly));
+			expenseRepository.save(new Expense("8.1.2021", "Pencils & noteds to office", 24.95, typeOfExpense6, vat3, matt));
 			
 			
 			log.info("Fetch all expenses");

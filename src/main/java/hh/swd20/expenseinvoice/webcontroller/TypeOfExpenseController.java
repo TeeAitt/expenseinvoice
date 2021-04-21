@@ -1,5 +1,8 @@
 package hh.swd20.expenseinvoice.webcontroller;
 
+import java.util.List;
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import hh.swd20.expenseinvoice.domain.TypeOfExpense;
 import hh.swd20.expenseinvoice.domain.TypeOfExpenseRepository;
@@ -57,5 +62,26 @@ public class TypeOfExpenseController {
 		return "redirect:../typeofexpenselist";
 	}
 	
+	
+	/************************* RESTful services below ****************************
+	 */
+	
+	// This REST function will get all the expense types.
+	@RequestMapping(value="/types", method=RequestMethod.GET)
+	public @ResponseBody List<TypeOfExpense> typeListRest() {
+		return (List<TypeOfExpense>) typeOfExpenseRepository.findAll();
+	}
+	
+	// This REST function will get an expense type by its id.
+	@RequestMapping(value="/types/{id}", method=RequestMethod.GET)
+	public @ResponseBody Optional<TypeOfExpense> findTypeRest(@PathVariable("id") Long typeId) {
+		return typeOfExpenseRepository.findById(typeId);
+	}
+	
+	// This REST function will save a new expense type.
+	@RequestMapping(value="/types", method=RequestMethod.POST)
+	public @ResponseBody TypeOfExpense saveTypeRest(@RequestBody TypeOfExpense typeOfExpense) {
+		return typeOfExpenseRepository.save(typeOfExpense);
+	}
 
 }

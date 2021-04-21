@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-<title>Expense Invoice</title>
+<title>Expense Invoices</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -16,10 +16,10 @@
 <body>
 <div class="container p-3 mb-2 bg-dark text-black rounded">
 	<h1>Expense invoice</h1>
-	<div th:if="${param.error}" class="well">
+	<div th:if="${param.error}" class="well" style="color: white">
 	Invalid user name and password!
 	</div>
-	<div th:if="${param.logout}" class="well">
+	<div th:if="${param.logout}" class="well" style="color: white">
 	You have been logged out.
 	</div>
 	<div class="col-md-4">

@@ -114,7 +114,13 @@ public class Expense {
 	public String toString() {
 		if (this.typeOfExpense != null)
 		return "Expense [id=" + id + ", date=" + date + ", expenseDef=" + expenseDef + ", sum=" + sum
-				+ ", typeOfExpense=" + this.getTypeOfExpense() + ", vat=" + this.getVat() + ", user=" + this.getUser() + "]";
+				+ ", typeOfExpense=" + this.getTypeOfExpense() + "]";
+		else if (this.vat != null)
+		return "Expense [id=" + id + ", date=" + date + ", expenseDef=" + expenseDef + ", sum=" + sum
+				+ ", vat=" + this.getVat() + "]";
+		else if (this.user != null)
+		return "Expense [id=" + id + ", date=" + date + ", expenseDef=" + expenseDef + ", sum=" + sum
+				+ ", user=" + this.getUser() + "]";
 		else
 		return "Expense [id=" + id + ", date=" + date + ", expenseDef=" + expenseDef + ", sum=" + sum
 				+ "]";

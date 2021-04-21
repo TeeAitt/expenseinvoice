@@ -19,7 +19,7 @@ public class TypeOfExpense {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
-	@Size(min=2, max=25, message="Type definition needs to be at least 2 characters and max 25 characters.")
+	@Size(min=2, max=35, message="Type definition needs to be at least 2 characters and max 35 characters.")
 	private String typeDef;
 	
 	// JsonIgnore will prevent an infinite loop that will happen with a JSON and OneToMany combination.

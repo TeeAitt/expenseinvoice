@@ -1,5 +1,8 @@
 package hh.swd20.expenseinvoice.webcontroller;
 
+import java.util.List;
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import hh.swd20.expenseinvoice.domain.Department;
 import hh.swd20.expenseinvoice.domain.DepartmentRepository;
@@ -57,5 +62,26 @@ public class DepartmentController {
 		return "redirect:../deptlist";
 	}
 	
+	
+	/************************* RESTful services below ****************************
+	 */
+	
+	// This REST function will get all the departments.
+	@RequestMapping(value="/departments", method=RequestMethod.GET)
+	public @ResponseBody List<Department> deptListRest() {
+		return (List<Department>) departmentRepository.findAll();
+	}
+	
+	// This REST function will get a department by its id.
+	@RequestMapping(value="/departments/{id}", method=RequestMethod.GET)
+	public @ResponseBody Optional<Department> findDeptRest(@PathVariable("id") Long deptId) {
+		return departmentRepository.findById(deptId);
+	}
+	
+	// This REST function will save a new department.
+	@RequestMapping(value="/departments", method=RequestMethod.POST)
+	public @ResponseBody Department saveDeptRest(@RequestBody Department department) {
+		return departmentRepository.save(department);
+	}
 
 }

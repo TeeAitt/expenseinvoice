@@ -3,11 +3,13 @@ package hh.swd20.expenseinvoice;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import hh.swd20.expenseinvoice.domain.Department;
@@ -39,6 +41,9 @@ public class RepositoryTest {
 	
 	@Autowired
 	private VatRepository vatRepository;
+	
+	
+	// Below find function tests
 	
 	@Test
 	public void finByDepNameShoudReturnDepartment() {
@@ -74,9 +79,12 @@ public class RepositoryTest {
 		assertThat(vats.get(0).getVatPercentage()).isEqualTo(14.0);
 	}
 	
+	
+	// Below add function tests
+	
 	@Test
 	public void addNewDepartment() {
-		Department department = new Department("Marketing");
+		Department department = new Department("Developing");
 		departmentRepository.save(department);
 		assertThat(department.getId()).isNotNull();
 	}
@@ -107,6 +115,54 @@ public class RepositoryTest {
 		Vat vat = new Vat(12.0);
 		vatRepository.save(vat);
 		assertThat(vat.getId()).isNotNull();
+	}
+	
+	
+	// Below delete function tests
+	
+	@Test
+	@Rollback(false)
+	public void deleteDepartment() {
+		Department department = departmentRepository.findById(Long.valueOf(4)).get();
+		departmentRepository.delete(department);
+		Optional<Department> deleteDepartment = departmentRepository.findById(Long.valueOf(4));
+		assertThat(deleteDepartment).isEmpty();
+	}
+	
+	@Test
+	@Rollback(false)
+	public void deleteExpense() {
+		Expense expense = expenseRepository.findById(Long.valueOf(3)).get();
+		expenseRepository.delete(expense);
+		Optional<Expense> deleteExpense = expenseRepository.findById(Long.valueOf(3));
+		assertThat(deleteExpense).isEmpty();
+	}
+	
+	@Test
+	@Rollback(false)
+	public void deleteType() {
+		TypeOfExpense typeOfExpense = typeOfExpenseRepository.findById(Long.valueOf(2)).get();
+		typeOfExpenseRepository.delete(typeOfExpense);
+		Optional<TypeOfExpense> deleteType = typeOfExpenseRepository.findById(Long.valueOf(2));
+		assertThat(deleteType).isEmpty();
+	}
+	
+	@Test
+	@Rollback(false)
+	public void deleteUser() {
+		User user = userRepository.findById(Long.valueOf(2)).get();
+		userRepository.delete(user);
+		Optional<User> deleteUser = userRepository.findById(Long.valueOf(2));
+		assertThat(deleteUser).isEmpty();
+	}
+	
+	@Test
+	@Rollback(false)
+	public void deleteVat() {
+		Vat vat = vatRepository.findById(Long.valueOf(4)).get();
+		vatRepository.delete(vat);
+		Optional<Vat> deleteVat = vatRepository.findById(Long.valueOf(4));
+		assertThat(deleteVat).isEmpty();
 	}
 
 }

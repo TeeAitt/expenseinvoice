@@ -1,12 +1,17 @@
 package hh.swd20.expenseinvoice.webcontroller;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import hh.swd20.expenseinvoice.domain.Expense;
 import hh.swd20.expenseinvoice.domain.ExpenseRepository;
@@ -76,6 +81,28 @@ public class ExpenseController {
 	public String deleteExpense(@PathVariable(value="id") Long expenseId) {
 		expenseRepository.deleteById(expenseId);
 		return "redirect:../expenseslist";
+	}
+	
+	
+	/************************* RESTful services below ****************************
+	 */
+	
+	// This REST function will get all the expenses.
+	@RequestMapping(value="/expenses", method=RequestMethod.GET)
+	public @ResponseBody List<Expense> expenseListRest() {
+		return (List<Expense>) expenseRepository.findAll();
+	}
+	
+	// This REST function will get an expense by its id.
+	@RequestMapping(value="/expenses/{id}", method=RequestMethod.GET)
+	public @ResponseBody Optional<Expense> findExpenseRest(@PathVariable("id") Long expId) {
+		return expenseRepository.findById(expId);
+	}
+	
+	// This REST function will save a new expense.
+	@RequestMapping(value="/expenses", method=RequestMethod.POST)
+	public @ResponseBody Expense saveExpenseRest(@RequestBody Expense expense) {
+		return expenseRepository.save(expense);
 	}
 
 }
