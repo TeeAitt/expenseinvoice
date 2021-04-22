@@ -159,9 +159,9 @@ public class RepositoryTest {
 	@Test
 	@Rollback(false)
 	public void deleteVat() {
-		Vat vat = vatRepository.findById(Long.valueOf(4)).get();
+		Vat vat = vatRepository.findById(Long.valueOf(1)).get();
 		vatRepository.delete(vat);
-		Optional<Vat> deleteVat = vatRepository.findById(Long.valueOf(4));
+		Optional<Vat> deleteVat = vatRepository.findById(Long.valueOf(1));
 		assertThat(deleteVat).isEmpty();
 	}
 

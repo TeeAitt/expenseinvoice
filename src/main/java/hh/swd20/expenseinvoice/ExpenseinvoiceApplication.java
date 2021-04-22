@@ -49,15 +49,15 @@ public class ExpenseinvoiceApplication {
 			typeOfExpenseRepository.save(typeOfExpense7);
 			
 			// Demo vat percentages
+			Vat vat0 = new Vat(0.0);
 			Vat vat1 = new Vat(10.0);
 			Vat vat2 = new Vat(14.0);
 			Vat vat3 = new Vat(24.0);
-			Vat vatTest = new Vat(9.0);
 			
+			vatRepository.save(vat0);
 			vatRepository.save(vat1);
 			vatRepository.save(vat2);
 			vatRepository.save(vat3);
-			vatRepository.save(vatTest);
 			
 			// Demo Departments
 			Department dept1 = new Department("Finance");
